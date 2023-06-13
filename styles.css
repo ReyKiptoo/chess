@@ -41,7 +41,7 @@ body {
     height: 35px; */
   }
   .fa-play {
-    transform: scale(1.25) translateY(-0.15em);
+    transform: scale(1.25) translateY(-0.12em);
     background: linear-gradient(135deg, #23f, #6589ff);
   }
   header {
