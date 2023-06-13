@@ -11,10 +11,10 @@
   WHITE #FFFFFF rgb(255, 255, 255)
 */
 
-body {
-  background-color: #0c0c0c;
-}
 @media only screen and (max-width: 600px) {
+  body {
+    background-color: #0c0c0c;
+  }
   footer {
     background-color: #ffd585;
     position: fixed;
@@ -72,5 +72,15 @@ body {
   }
   header h3 {
     font-size: 2em;
+  }
+
+  .board {
+    margin-top: 120px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 500px;
+    width: 95%;
+    border: 2px solid #ffd585;
+    /* background-color: #ffd585; */
   }
 }
