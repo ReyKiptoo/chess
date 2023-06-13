@@ -1,6 +1,10 @@
-// window.addEventListener("load", function () {
-//   // Set a timeout to hide the URL bar after the page has loaded
-//   setTimeout(function () {
-//     window.scrollTo(0, 1); // Scroll to hide the URL bar
-//   }, 0);
-// });
+// Getting elements
+
+const playStop = document.querySelector(".fa-play");
+const body = document.querySelector("body");
+
+playStop.addEventListener("click", function () {
+  console.log("Play Clicked");
+  playStop.classList.remove("fa-play");
+  playStop.classList.remove("fa-pause");
+});
