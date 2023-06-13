@@ -12,7 +12,9 @@
 */
 
 @media only screen and (max-width: 600px) {
-  html,
+  html {
+    height: 100%;
+  }
   body {
     background-color: #0c0c0c;
     height: 100vh;
