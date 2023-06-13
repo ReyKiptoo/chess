@@ -53,10 +53,6 @@
   header {
     /* rgba(255, 213, 133, 0.3) */
     box-shadow: rgba(255, 213, 133, 0.3) 0px 5px 15px;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
     width: 96%;
     height: 12%;
     margin-left: auto;
@@ -82,9 +78,10 @@
 
   .board {
     /* margin-top: 120px; */
+    margin-top: 4%;
     margin-left: auto;
     margin-right: auto;
-    height: 65%;
+    height: 70%;
     width: 95%;
     border: 2px solid #ffd585;
     /* background-color: #ffd585; */
