@@ -1,28 +1,35 @@
 // Getting elements
+// Icons
+const iconPlayStop = document.querySelector(".fa-play");
+const iconBoardPiecesAndCoords = document.querySelector(".fa-chess");
+const iconTimer = document.querySelector(".fa-clock");
 
-const playStop = document.querySelector(".fa-play");
-const boardPiecesAndCoords = document.querySelector(".fa-chess");
+//Other Elements
 const body = document.querySelector("body");
 const board = document.querySelector(".board");
+const playingTimeText = document.querySelector(".playingTime");
 
 let playing = true;
 let piecesShowing = false;
+let playingTime = playingTimeText.innerHTML;
 
-playStop.addEventListener("click", function () {
+// EVENT LISTENERS
+iconPlayStop.addEventListener("click", function () {
   changeIcon();
 });
 
-boardPiecesAndCoords.addEventListener("click", togglePiecesAndCoordinates);
+iconBoardPiecesAndCoords.addEventListener("click", togglePiecesAndCoordinates);
+iconTimer.addEventListener("click", togglePlayingTime);
 
 function changeIcon() {
   if (playing) {
     playing = false;
-    playStop.classList.remove("fa-play");
-    playStop.classList.add("fa-pause");
+    iconPlayStop.classList.remove("fa-play");
+    iconPlayStop.classList.add("fa-pause");
   } else if (!playing) {
     playing = true;
-    playStop.classList.add("fa-play");
-    playStop.classList.remove("fa-pause");
+    iconPlayStop.classList.add("fa-play");
+    iconPlayStop.classList.remove("fa-pause");
   }
 }
 
@@ -33,5 +40,18 @@ function togglePiecesAndCoordinates() {
   } else if (piecesShowing) {
     piecesShowing = false;
     board.style.border = "2px solid #ffd585";
+  }
+}
+
+function togglePlayingTime() {
+  if (playingTime == "30") {
+    playingTimeText.innerHTML = "45";
+    playingTime = "45";
+  } else if (playingTime == "45") {
+    playingTimeText.innerHTML = "60";
+    playingTime = "60";
+  } else if (playingTime == "60") {
+    playingTimeText.innerHTML = "30";
+    playingTime = "30";
   }
 }
