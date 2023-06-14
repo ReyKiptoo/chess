@@ -96,6 +96,34 @@
     flex-direction: row;
   }
 
+  /* Setting background colors for the first and second row */
+  .row1 .col:nth-child(even),
+  .row3 .col:nth-child(even),
+  .row5 .col:nth-child(even),
+  .row7 .col:nth-child(even) {
+    background-color: #b58863;
+  }
+  .row1 .col:nth-child(odd),
+  .row3 .col:nth-child(odd),
+  .row5 .col:nth-child(odd),
+  .row7 .col:nth-child(odd) {
+    background-color: #f0d9b5;
+  }
+
+  .row2 .col:nth-child(odd),
+  .row4 .col:nth-child(odd),
+  .row6 .col:nth-child(odd),
+  .row8 .col:nth-child(odd) {
+    background-color: #b58863;
+  }
+  .row2 .col:nth-child(even),
+  .row4 .col:nth-child(even),
+  .row6 .col:nth-child(even),
+  .row8 .col:nth-child(even) {
+    background-color: #f0d9b5;
+  }
+
+  /* setting background colors for the third and fourth row */
   .col {
     height: 100%;
     width: 12.5%;
