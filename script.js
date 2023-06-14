@@ -12,6 +12,7 @@ playStop.addEventListener("click", function () {
     playStop.classList.remove("fa-play");
     playStop.classList.add("fa-pause");
   } else if (!playing) {
+    playing = true;
     playStop.classList.add("fa-play");
     playStop.classList.remove("fa-pause");
   }
