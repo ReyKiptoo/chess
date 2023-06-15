@@ -96,6 +96,16 @@
     flex-direction: row;
   }
 
+  .col {
+    height: 100%;
+    width: 12.5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    /* border: 1px solid #ffd585; */
+  }
+
   /* setting border radius for corner cells */
   .row1 .col:first-child {
     border-radius: 20% 0 0 0;
@@ -134,11 +144,5 @@
   .row6 .col:nth-child(even),
   .row8 .col:nth-child(even) {
     background-color: #f0d9b5;
-  }
-
-  .col {
-    height: 100%;
-    width: 12.5%;
-    /* border: 1px solid #ffd585; */
   }
 }
