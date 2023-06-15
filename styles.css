@@ -96,6 +96,10 @@
     flex-direction: row;
   }
 
+  .row1 .col:last-child {
+    border-radius: 3%;
+    /* border: 2px solid red; */
+  }
   /* Setting background colors for the first and second row */
   .row1 .col:nth-child(even),
   .row3 .col:nth-child(even),
@@ -127,6 +131,6 @@
   .col {
     height: 100%;
     width: 12.5%;
-    border: 1px solid #ffd585;
+    /* border: 1px solid #ffd585; */
   }
 }
