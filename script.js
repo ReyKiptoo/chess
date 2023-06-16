@@ -8,6 +8,8 @@ const iconTimer = document.querySelector(".fa-clock");
 const body = document.querySelector("body");
 const board = document.querySelector(".board");
 const playingTimeText = document.querySelector(".playingTime");
+const rank = document.querySelector(".rank");
+const file = document.querySelector(".file");
 
 let playing = true;
 let piecesShowing = false;
@@ -36,10 +38,10 @@ function changeIcon() {
 function togglePiecesAndCoordinates() {
   if (!piecesShowing) {
     piecesShowing = true;
-    board.style.border = "2px solid #ffffff";
+    rank.style.display = "none";
+    file.style.display = "none";
   } else if (piecesShowing) {
     piecesShowing = false;
-    board.style.border = "2px solid #ffd585";
   }
 }
 
