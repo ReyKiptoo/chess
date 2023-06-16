@@ -101,12 +101,22 @@
   }
 
   .rank {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: space-around;
     margin-right: 1%;
   }
   .rank h4 {
+    color: #ffd585;
+    font-family: "Quicksand", sans-serif;
+  }
+  .file {
+    display: none;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 1%;
+  }
+  .file h4 {
     color: #ffd585;
     font-family: "Quicksand", sans-serif;
   }
@@ -165,16 +175,5 @@
   .row6 .col:nth-child(even),
   .row8 .col:nth-child(even) {
     background-color: #f0d9b5;
-  }
-
-  .file {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin-top: 1%;
-  }
-  .file h4 {
-    color: #ffd585;
-    font-family: "Quicksand", sans-serif;
   }
 }

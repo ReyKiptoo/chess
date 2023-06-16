@@ -38,12 +38,12 @@ function changeIcon() {
 function togglePiecesAndCoordinates() {
   if (!piecesShowing) {
     piecesShowing = true;
-    rank.style.display = "none";
-    file.style.display = "none";
-  } else if (piecesShowing) {
-    piecesShowing = false;
     rank.style.display = "flex";
     file.style.display = "flex";
+  } else if (piecesShowing) {
+    rank.style.display = "none";
+    file.style.display = "none";
+    piecesShowing = false;
   }
 }
 
