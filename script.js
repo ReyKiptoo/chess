@@ -42,6 +42,8 @@ function togglePiecesAndCoordinates() {
     file.style.display = "none";
   } else if (piecesShowing) {
     piecesShowing = false;
+    rank.style.display = "flex";
+    file.style.display = "flex";
   }
 }
 
