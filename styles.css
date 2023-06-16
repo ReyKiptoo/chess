@@ -145,4 +145,15 @@
   .row8 .col:nth-child(even) {
     background-color: #f0d9b5;
   }
+
+  .file {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 1%;
+  }
+  .file h4 {
+    color: #ffd585;
+    font-family: "Quicksand", sans-serif;
+  }
 }
