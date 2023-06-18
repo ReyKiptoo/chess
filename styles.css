@@ -137,6 +137,12 @@
     /* border: 1px solid #ffd585; */
   }
 
+  /* Setting the visibility of pieces to be hidden on launch of web app */
+
+  .piece {
+    visibility: hidden;
+  }
+
   /* setting border radius for corner cells */
   .row1 .col:first-child {
     border-radius: 20% 0 0 0;

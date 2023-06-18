@@ -10,12 +10,15 @@ const board = document.querySelector(".board");
 const playingTimeText = document.querySelector(".playingTime");
 const rank = document.querySelector(".rank");
 const file = document.querySelector(".file");
+const pieces = document.querySelectorAll(".piece");
 
 let playing = true;
 let piecesShowing = false;
+let coordsShowing = false;
+let whitePlay = true;
+
 let playingTime = playingTimeText.innerHTML;
 
-// EVENT LISTENERS
 iconPlayStop.addEventListener("click", function () {
   changeIcon();
 });
@@ -36,14 +39,26 @@ function changeIcon() {
 }
 
 function togglePiecesAndCoordinates() {
-  if (!piecesShowing) {
-    piecesShowing = true;
+  if (!coordsShowing) {
+    coordsShowing = true;
     rank.style.display = "flex";
     file.style.display = "flex";
-  } else if (piecesShowing) {
-    rank.style.display = "none";
-    file.style.display = "none";
-    piecesShowing = false;
+  } else if (coordsShowing) {
+    if (!piecesShowing) {
+      piecesShowing = true;
+      for (const piece of pieces) {
+        piece.style.visibility = "visible";
+      }
+    } else if (piecesShowing) {
+      // This means peices and coords are showing so hide pieces, then hide coords
+      piecesShowing = false;
+      coordsShowing = false;
+      rank.style.display = "none";
+      file.style.display = "none";
+      for (const piece of pieces) {
+        piece.style.visibility = "hidden";
+      }
+    }
   }
 }
 
