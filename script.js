@@ -3,6 +3,8 @@
 const iconPlayStop = document.querySelector(".fa-play");
 const iconBoardPiecesAndCoords = document.querySelector(".fa-chess");
 const iconTimer = document.querySelector(".fa-clock");
+const iconWhitePlay = document.querySelector(".whiteWrapper i");
+const iconBlackPlay = document.querySelector(".blackWrapper i");
 
 //Other Elements
 const body = document.querySelector("body");
@@ -11,20 +13,21 @@ const playingTimeText = document.querySelector(".playingTime");
 const rank = document.querySelector(".rank");
 const file = document.querySelector(".file");
 const pieces = document.querySelectorAll(".piece");
+const whiteWrapper = document.querySelector(".whiteWrapper");
+const blackWrapper = document.querySelector(".blackWrapper");
 
 let playing = true;
 let piecesShowing = false;
 let coordsShowing = false;
-let whitePlay = true;
-
+let whitePlay = false;
 let playingTime = playingTimeText.innerHTML;
 
-iconPlayStop.addEventListener("click", function () {
-  changeIcon();
-});
-
+// Event listeners for clicks
+iconPlayStop.addEventListener("click", changeIcon);
 iconBoardPiecesAndCoords.addEventListener("click", togglePiecesAndCoordinates);
 iconTimer.addEventListener("click", togglePlayingTime);
+iconBlackPlay.addEventListener("click", setPlayUIToBlack);
+iconWhitePlay.addEventListener("click", setPlayUIToWhite);
 
 function changeIcon() {
   if (playing) {
@@ -73,4 +76,19 @@ function togglePlayingTime() {
     playingTimeText.innerHTML = "30";
     playingTime = "30";
   }
+}
+
+function setPlayUIToBlack() {
+  whitePlay = false;
+  whiteWrapper.style.border = "none";
+  blackWrapper.style.border = "2px solid black";
+  rank.style.flexDirection = "column-reverse";
+  file.style.flexDirection = "row-reverse";
+}
+function setPlayUIToWhite() {
+  whitePlay = true;
+  whiteWrapper.style.border = "2px solid black";
+  blackWrapper.style.border = "none";
+  rank.style.flexDirection = "column";
+  file.style.flexDirection = "row";
 }

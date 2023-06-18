@@ -33,11 +33,12 @@
     margin-left: auto;
     text-align: center;
     margin-right: auto;
-    margin-bottom: 7px;
+    margin-bottom: 3%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding: 3%;
   }
 
   .ficon {
@@ -80,26 +81,27 @@
     height: 100%;
     width: 100%;
   }
-  /* ORIGINAL .BOARD STYLES */
-  /*  margin-top: 4%;
-    margin-left: auto;
-    margin-right: auto;
-    height: 70%;
-    width: 80%;
-    border: 1.5px solid #ffd585;
-    border-radius: 3%; */
   .outer-board {
     margin-top: 4%;
     margin-left: auto;
     margin-right: auto;
     height: 70%;
     width: 96%;
-    /* border: 1.5px solid #ffd585; */
     border-radius: 3%;
     display: flex;
     flex-direction: row;
   }
 
+  /* Wrapper for the knigth icons for footer */
+  .wrapper {
+    border-radius: 1em;
+    height: auto;
+    width: auto;
+    padding: 0.6em;
+  }
+  .whiteWrapper {
+    border: 2px solid black;
+  }
   .rank {
     display: none;
     flex-direction: column;
