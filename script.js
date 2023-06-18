@@ -15,6 +15,8 @@ const file = document.querySelector(".file");
 const pieces = document.querySelectorAll(".piece");
 const whiteWrapper = document.querySelector(".whiteWrapper");
 const blackWrapper = document.querySelector(".blackWrapper");
+const topPieces = document.querySelectorAll(".board .fa-solid");
+const bottomPieces = document.querySelectorAll(".board .fa-regular");
 
 let playing = true;
 let piecesShowing = false;
@@ -22,7 +24,7 @@ let coordsShowing = false;
 let whitePlay = false;
 let playingTime = playingTimeText.innerHTML;
 
-// Event listeners for clicks
+// Event listeners for clicks for changing UI
 iconPlayStop.addEventListener("click", changeIcon);
 iconBoardPiecesAndCoords.addEventListener("click", togglePiecesAndCoordinates);
 iconTimer.addEventListener("click", togglePlayingTime);
@@ -84,6 +86,16 @@ function setPlayUIToBlack() {
   blackWrapper.style.border = "2px solid black";
   rank.style.flexDirection = "column-reverse";
   file.style.flexDirection = "row-reverse";
+
+  // Change top pieces to white and bottom pieces to black
+  for (const piece of topPieces) {
+    piece.classList.remove("fa-solid");
+    piece.classList.add("fa-regular");
+  }
+  for (const piece of bottomPieces) {
+    piece.classList.remove("fa-regular");
+    piece.classList.add("fa-solid");
+  }
 }
 function setPlayUIToWhite() {
   whitePlay = true;
@@ -91,4 +103,14 @@ function setPlayUIToWhite() {
   blackWrapper.style.border = "none";
   rank.style.flexDirection = "column";
   file.style.flexDirection = "row";
+
+  // change top pieces to black and bottom pieces to white
+  for (const piece of topPieces) {
+    piece.classList.remove("fa-regular");
+    piece.classList.add("fa-solid");
+  }
+  for (const piece of bottomPieces) {
+    piece.classList.remove("fa-solid");
+    piece.classList.add("fa-regular");
+  }
 }
