@@ -17,7 +17,19 @@ const whiteWrapper = document.querySelector(".whiteWrapper");
 const blackWrapper = document.querySelector(".blackWrapper");
 const topPieces = document.querySelectorAll(".board .fa-solid");
 const bottomPieces = document.querySelectorAll(".board .fa-regular");
+const coordsQuizText = document.querySelector(".coordsQuiz");
 
+// Selecting the grid
+const squares1 = document.querySelectorAll(".row1 div");
+const squares2 = document.querySelectorAll(".row2 div");
+const squares3 = document.querySelectorAll(".row3 div");
+const squares4 = document.querySelectorAll(".row4 div");
+const squares5 = document.querySelectorAll(".row5 div");
+const squares6 = document.querySelectorAll(".row6 div");
+const squares7 = document.querySelectorAll(".row7 div");
+const squares8 = document.querySelectorAll(".row8 div");
+
+//Array of all possible coordinates
 const array1 = ["a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1"];
 const array2 = ["a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2"];
 const array3 = ["a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3"];
@@ -38,15 +50,34 @@ const fullCoordsArray = [
   ...array8,
 ];
 
-const randomCoordinate = fullCoordsArray[randomIntFromInterval(0, 63)];
+const fullSquaresArray = Array.from(squares1).concat(
+  Array.from(squares2).concat(
+    Array.from(squares3).concat(
+      Array.from(squares4).concat(
+        Array.from(squares5).concat(
+          Array.from(squares6).concat(
+            Array.from(squares7).concat(Array.from(squares8))
+          )
+        )
+      )
+    )
+  )
+);
 
+fullSquaresArray.forEach(function (square, index) {
+  square.addEventListener("click", checkAccuracyOfUserChoice);
+});
+const randomCoordinate = fullCoordsArray[randomIntFromInterval(0, 63)];
 console.log(randomCoordinate);
-let playing = true;
+
+let playing = false;
 let piecesShowing = false;
 let coordsShowing = false;
 let whitePlay = false;
 let playingTime = playingTimeText.innerHTML;
 
+let gameTimer;
+console.log(playingTime);
 // Event listeners for clicks for changing UI
 iconPlayStop.addEventListener("click", changeIcon);
 iconBoardPiecesAndCoords.addEventListener("click", togglePiecesAndCoordinates);
@@ -54,16 +85,49 @@ iconTimer.addEventListener("click", togglePlayingTime);
 iconBlackPlay.addEventListener("click", setPlayUIToBlack);
 iconWhitePlay.addEventListener("click", setPlayUIToWhite);
 
+// Function to countdown the 3 seconds timer then immediately begin the game timer
+
+function countDown3() {
+  playing = true;
+  let timer = 3;
+  const myTimer = setInterval(function () {
+    coordsQuizText.textContent = timer;
+    if (timer === 0) {
+      clearInterval(myTimer);
+      coordsQuizText.textContent = randomCoordinate;
+      let time = Number(playingTime);
+      gameTimer = setInterval(function () {
+        playingTimeText.textContent = time;
+
+        if (time === 0) {
+          clearInterval(gameTimer);
+          console.log(`GAME OVER`);
+        }
+        time--;
+      }, 1000);
+    }
+    timer--;
+  }, 1000);
+}
+
+function checkAccuracyOfUserChoice() {
+  const square = this;
+  const originalColor = getComputedStyle(this).backgroundColor;
+  this.style.backgroundColor = "#a2d898";
+  setTimeout(function () {
+    square.style.backgroundColor = originalColor;
+  }, 100);
+}
+
 function changeIcon() {
-  if (playing) {
-    playing = false;
+  if (!playing) {
     iconPlayStop.classList.remove("fa-play");
     iconPlayStop.classList.add("fa-pause");
-  } else if (!playing) {
-    playing = true;
+  } else if (playing) {
     iconPlayStop.classList.add("fa-play");
     iconPlayStop.classList.remove("fa-pause");
   }
+  countDown3();
 }
 
 function togglePiecesAndCoordinates() {
