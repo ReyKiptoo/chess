@@ -18,7 +18,7 @@ const blackWrapper = document.querySelector(".blackWrapper");
 const topPieces = document.querySelectorAll(".board .fa-solid");
 const bottomPieces = document.querySelectorAll(".board .fa-regular");
 const coordsQuizText = document.querySelector(".coordsQuiz");
-const score = document.querySelector("header h3");
+const scoreText = document.querySelector("header h3");
 
 // Selecting the grid
 const squares1 = document.querySelectorAll(".row1 div");
@@ -65,8 +65,8 @@ const whitePlayMap = new Map([
   ["36", "f6"],
   ["37", "g6"],
   ["38", "h6"],
-  ["42", "b5"],
   ["41", "a5"],
+  ["42", "b5"],
   ["43", "c5"],
   ["44", "d5"],
   ["45", "e5"],
@@ -107,6 +107,73 @@ const whitePlayMap = new Map([
   ["88", "h1"],
 ]);
 
+const blackPlayMap = new Map([
+  ["11", "h1"],
+  ["12", "g1"],
+  ["13", "f1"],
+  ["14", "e1"],
+  ["15", "d1"],
+  ["16", "c1"],
+  ["17", "b1"],
+  ["18", "a1"],
+  ["21", "h2"],
+  ["22", "g2"],
+  ["23", "f2"],
+  ["24", "e2"],
+  ["25", "d2"],
+  ["26", "c2"],
+  ["27", "b2"],
+  ["28", "a2"],
+  ["31", "h3"],
+  ["32", "g3"],
+  ["33", "f3"],
+  ["34", "e3"],
+  ["35", "d3"],
+  ["36", "c3"],
+  ["37", "b3"],
+  ["38", "a3"],
+  ["41", "h4"],
+  ["42", "g4"],
+  ["43", "f4"],
+  ["44", "e4"],
+  ["45", "d4"],
+  ["46", "c4"],
+  ["47", "b4"],
+  ["48", "a4"],
+  ["51", "h5"],
+  ["52", "g5"],
+  ["53", "f5"],
+  ["54", "e5"],
+  ["55", "d5"],
+  ["56", "c5"],
+  ["57", "b5"],
+  ["58", "a5"],
+  ["61", "h6"],
+  ["62", "g6"],
+  ["63", "f6"],
+  ["64", "e6"],
+  ["65", "d6"],
+  ["66", "c6"],
+  ["67", "b6"],
+  ["68", "a6"],
+  ["71", "h7"],
+  ["72", "g7"],
+  ["73", "f7"],
+  ["74", "e7"],
+  ["75", "d7"],
+  ["76", "c7"],
+  ["77", "b7"],
+  ["78", "a7"],
+  ["81", "h8"],
+  ["82", "g8"],
+  ["83", "f8"],
+  ["84", "e8"],
+  ["85", "d8"],
+  ["86", "c8"],
+  ["87", "b8"],
+  ["88", "a8"],
+]);
+
 const fullCoordsArray = [
   ...array1,
   ...array2,
@@ -122,54 +189,70 @@ const fullCoordsArray = [
 board.addEventListener("click", function (e) {
   checkAccuracyOfUserChoice(e, "12");
 });
-
+let boardActive = false;
 let playing = false;
 let piecesShowing = false;
 let coordsShowing = false;
-let whitePlay = false;
+let whitePlay = true;
 let playingTime = playingTimeText.innerHTML;
 let currentQuiz = fullCoordsArray[randomIntFromInterval(0, 63)];
-let nextQuiz;
-
-let gameTimer;
+let score;
 
 // Event listeners for clicks for changing UI
-iconPlayStop.addEventListener("click", changeIcon);
+iconPlayStop.addEventListener("click", startGame);
 iconBoardPiecesAndCoords.addEventListener("click", togglePiecesAndCoordinates);
 iconTimer.addEventListener("click", togglePlayingTime);
 iconBlackPlay.addEventListener("click", setPlayUIToBlack);
 iconWhitePlay.addEventListener("click", setPlayUIToWhite);
 
-// set the cu
-
-function countDown3() {
-  let timer = 3;
-  let runTimer;
-  const startTimer = setInterval(function () {
-    coordsQuizText.textContent = timer;
-    if (timer === 0) {
-      playing = true;
-      const time = "";
-      playingTime--;
-      clearInterval(startTimer);
-
-      coordsQuizText.textContent = currentQuiz;
-      runTimer = setInterval(function () {
-        playingTimeText.textContent = playingTime;
-        if (playingTime === 0) {
-          // coordsQuizText.textContent = "XX";
-          clearInterval(runTimer);
-          playing = false;
-        }
-        playingTime--;
-      }, 1000);
-    }
-    timer--;
-  }, 1000);
+function changeIcon() {
+  if (playing) {
+    iconPlayStop.classList.remove("fa-play");
+    iconPlayStop.classList.add("fa-pause");
+  } else if (!playing) {
+    iconPlayStop.classList.add("fa-play");
+    iconPlayStop.classList.remove("fa-pause");
+  }
 }
 
+function startGame() {
+  if (!playing) {
+    playing = true;
+    changeIcon();
+    let timer = 3;
+    const startTimer = setInterval(function () {
+      coordsQuizText.textContent = timer;
+      if (timer === 0) {
+        boardActive = true;
+        playingTime--;
+        clearInterval(startTimer);
+        coordsQuizText.textContent = currentQuiz;
+        const runTimer = setInterval(function () {
+          playingTimeText.textContent = String(playingTime).padStart(2, "0");
+          if (playingTime === 0) {
+            clearInterval(runTimer);
+            score = scoreText.innerHTML;
+            setTimeout(function () {
+              resetGame();
+            }, 2500);
+          }
+          playingTime--;
+        }, 1000);
+      }
+      timer--;
+    }, 1000);
+  }
+}
+
+function resetGame() {
+  playing = false;
+  coordsQuizText.textContent = score;
+  playingTimeText.textContent = "30";
+  scoreText.textContent = "0";
+  changeIcon();
+}
 function checkAccuracyOfUserChoice(e) {
-  if (playing) {
+  if (boardActive) {
     coordsQuizText.textContent = currentQuiz;
     const square = e.target.closest(".col");
     const col = square.classList[1];
@@ -180,7 +263,7 @@ function checkAccuracyOfUserChoice(e) {
     const originalColor = getComputedStyle(square).backgroundColor;
     if (whitePlayMap.get(userSol) == currentQuiz) {
       square.style.backgroundColor = "#a2d898";
-      score.textContent++;
+      scoreText.textContent++;
     } else {
       square.style.backgroundColor = "#FF0000";
     }
@@ -190,17 +273,6 @@ function checkAccuracyOfUserChoice(e) {
     currentQuiz = fullCoordsArray[randomIntFromInterval(0, 63)];
     coordsQuizText.textContent = currentQuiz;
   }
-}
-
-function changeIcon() {
-  if (!playing) {
-    iconPlayStop.classList.remove("fa-play");
-    iconPlayStop.classList.add("fa-pause");
-  } else if (playing) {
-    iconPlayStop.classList.add("fa-play");
-    iconPlayStop.classList.remove("fa-pause");
-  }
-  countDown3();
 }
 
 function togglePiecesAndCoordinates() {
