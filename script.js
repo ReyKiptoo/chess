@@ -149,6 +149,7 @@ function countDown3() {
     coordsQuizText.textContent = timer;
     if (timer === 0) {
       playing = true;
+      const time = "";
       playingTime--;
       clearInterval(startTimer);
 
