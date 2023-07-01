@@ -218,6 +218,8 @@ function changeIcon() {
 function startGame() {
   if (!playing) {
     playing = true;
+    playingTime = playingTimeText.innerHTML;
+    scoreText.textContent = "0";
     changeIcon();
     let timer = 3;
     const startTimer = setInterval(function () {
@@ -230,8 +232,8 @@ function startGame() {
         const runTimer = setInterval(function () {
           playingTimeText.textContent = String(playingTime).padStart(2, "0");
           if (playingTime === 0) {
+            boardActive = false;
             clearInterval(runTimer);
-            score = scoreText.innerHTML;
             setTimeout(function () {
               resetGame();
             }, 2500);
@@ -246,9 +248,7 @@ function startGame() {
 
 function resetGame() {
   playing = false;
-  coordsQuizText.textContent = score;
   playingTimeText.textContent = "30";
-  scoreText.textContent = "0";
   changeIcon();
 }
 function checkAccuracyOfUserChoice(e) {
@@ -261,11 +261,20 @@ function checkAccuracyOfUserChoice(e) {
       .charAt(row.length - 1)
       .concat(col.charAt(col.length - 1));
     const originalColor = getComputedStyle(square).backgroundColor;
-    if (whitePlayMap.get(userSol) == currentQuiz) {
-      square.style.backgroundColor = "#a2d898";
-      scoreText.textContent++;
+    if (whitePlay) {
+      if (whitePlayMap.get(userSol) == currentQuiz) {
+        square.style.backgroundColor = "#00FF00";
+        scoreText.textContent++;
+      } else {
+        square.style.backgroundColor = "#FF0000";
+      }
     } else {
-      square.style.backgroundColor = "#FF0000";
+      if (blackPlayMap.get(userSol) == currentQuiz) {
+        square.style.backgroundColor = "#00FF00";
+        scoreText.textContent++;
+      } else {
+        square.style.backgroundColor = "#FF0000";
+      }
     }
     setTimeout(function () {
       square.style.backgroundColor = originalColor;
@@ -313,37 +322,41 @@ function togglePlayingTime() {
 }
 
 function setPlayUIToBlack() {
-  whitePlay = false;
-  whiteWrapper.style.border = "none";
-  blackWrapper.style.border = "2px solid black";
-  rank.style.flexDirection = "column-reverse";
-  file.style.flexDirection = "row-reverse";
+  if (!playing) {
+    whitePlay = false;
+    whiteWrapper.style.border = "none";
+    blackWrapper.style.border = "2px solid black";
+    rank.style.flexDirection = "column-reverse";
+    file.style.flexDirection = "row-reverse";
 
-  // Change top pieces to white and bottom pieces to black
-  for (const piece of topPieces) {
-    piece.classList.remove("fa-solid");
-    piece.classList.add("fa-regular");
-  }
-  for (const piece of bottomPieces) {
-    piece.classList.remove("fa-regular");
-    piece.classList.add("fa-solid");
+    // Change top pieces to white and bottom pieces to black
+    for (const piece of topPieces) {
+      piece.classList.remove("fa-solid");
+      piece.classList.add("fa-regular");
+    }
+    for (const piece of bottomPieces) {
+      piece.classList.remove("fa-regular");
+      piece.classList.add("fa-solid");
+    }
   }
 }
 function setPlayUIToWhite() {
-  whitePlay = true;
-  whiteWrapper.style.border = "2px solid black";
-  blackWrapper.style.border = "none";
-  rank.style.flexDirection = "column";
-  file.style.flexDirection = "row";
+  if (!playing) {
+    whitePlay = true;
+    whiteWrapper.style.border = "2px solid black";
+    blackWrapper.style.border = "none";
+    rank.style.flexDirection = "column";
+    file.style.flexDirection = "row";
 
-  // change top pieces to black and bottom pieces to white
-  for (const piece of topPieces) {
-    piece.classList.remove("fa-regular");
-    piece.classList.add("fa-solid");
-  }
-  for (const piece of bottomPieces) {
-    piece.classList.remove("fa-solid");
-    piece.classList.add("fa-regular");
+    // change top pieces to black and bottom pieces to white
+    for (const piece of topPieces) {
+      piece.classList.remove("fa-regular");
+      piece.classList.add("fa-solid");
+    }
+    for (const piece of bottomPieces) {
+      piece.classList.remove("fa-solid");
+      piece.classList.add("fa-regular");
+    }
   }
 }
 
